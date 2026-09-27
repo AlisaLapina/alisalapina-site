@@ -2,7 +2,7 @@
 # Каждое сохранение — это коммит в GitHub; Netlify пересобирает сайт примерно за минуту.
 backend:
   name: github
-  repo: GITHUB_USER/alisalapina-site # заменить на реальный репозиторий
+  repo: AlisaLapina/alisalapina-site
   branch: main
 
 # Локальная работа без GitHub: `npm run cms` + `npm run dev`, затем http://localhost:4321/admin/
