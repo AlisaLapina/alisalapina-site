@@ -1,0 +1,44 @@
+{
+  "size": "30 × 40",
+  "description_ru": "",
+  "subtitle_ru": "по мотивам голландского натюрморта",
+  "description_en": "",
+  "medium_ru": "",
+  "published": true,
+  "cv_ru": "",
+  "subtitle_en": "after a Dutch still life",
+  "status": "Available",
+  "medium_en": "Digital fabrication, PLA",
+  "cv_en": "relief after a 17th-century Dutch still life; digital fabrication, PLA.",
+  "thumb": "/img/flowers-thumb.jpg",
+  "title": "Flowers",
+  "images": [
+    {
+      "src": "/img/flowers-close.jpg",
+      "caption_en": "Detail",
+      "caption_ru": "Деталь"
+    },
+    {
+      "src": "/img/flowers-detail.jpg",
+      "caption_en": "Close detail",
+      "caption_ru": "Крупная деталь"
+    },
+    {
+      "src": "/img/flowers-interior.jpg",
+      "caption_en": "In an interior",
+      "caption_ru": "В интерьере"
+    },
+    {
+      "src": "/img/flowers-view.jpg",
+      "caption_en": "View on the wall",
+      "caption_ru": "Вид на стене"
+    },
+    {
+      "src": "/img/install.jpg",
+      "caption_en": "Installation view",
+      "caption_ru": "Вид экспозиции"
+    }
+  ],
+  "after": "Dutch still life, 17th century",
+  "year": "2025"
+}

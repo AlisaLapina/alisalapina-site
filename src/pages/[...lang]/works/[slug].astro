@@ -1,0 +1,48 @@
+---
+import Base from "../../../layouts/Base.astro";
+import { LANGS, works, seriesOf, hasImages, pick, paragraphs, href, page, STATUS, T } from "../../../lib/data.js";
+export function getStaticPaths() {
+  return LANGS.flatMap((l) =>
+    Object.values(works).filter(hasImages).map((w) => ({ params: { lang: l === "ru" ? "ru" : undefined, slug: w.slug }, props: { w, lang: l } })),
+  );
+}
+const { w, lang } = Astro.props;
+const t = T[lang];
+const s = seriesOf(w.slug);
+const list = s ? s.works.filter((id) => hasImages(works[id])) : [w.slug];
+const i = list.indexOf(w.slug);
+const prev = list[(i - 1 + list.length) % list.length];
+const next = list[(i + 1) % list.length];
+const medium = pick(w, "medium", lang);
+const desc = pick(w, "description", lang);
+const email = page("settings").email;
+const sub = lang === "ru" ? w.subtitle_ru || w.subtitle_en : w.subtitle_en;
+---
+<Base lang={lang} current="works" path={`/works/${w.slug}`} title={w.title} description={`${w.title}${sub ? ", " + sub : ""}. ${w.year}. ${medium}`}>
+  <section class="grid wp">
+    <div class="info">
+      <div><h1>{w.title}{sub && <span>{sub}</span>}</h1></div>
+      {s && <a class="m" href={href(lang, `/series/${s.id}`)}>{t.series}: <span class="u">{s.title}</span></a>}
+      <dl>
+        {w.year && <><dt>{t.year}</dt><dd>{w.year}</dd></>}
+        {medium && <><dt>{t.medium}</dt><dd>{medium}</dd></>}
+        {w.size && <><dt>{t.size}</dt><dd>{w.size} {t.cm}</dd></>}
+        {w.after && <><dt>{t.after}</dt><dd>{w.after}</dd></>}
+        {w.status && <><dt>{t.status}</dt><dd class={w.status === "Available" ? "av" : undefined}>{STATUS[lang][w.status]}</dd></>}
+      </dl>
+      {w.status === "Available" && (
+        <details class="reqd"><summary class="req">{t.req}</summary><p class="reqbox">{t.reqText(email)}</p></details>
+      )}
+      {desc && (
+        <div class="acc"><details><summary>{t.description}</summary><div class="desc">{paragraphs(desc).map((p) => <p set:html={p.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/\n/g, "<br>")} />)}</div></details></div>
+      )}
+    </div>
+    <div class="imgs">
+      {w.images.map((im, k) => {
+        const cap = lang === "ru" ? im.caption_ru || im.caption_en : im.caption_en;
+        return <figure><img src={im.src} alt={`${w.title}${cap ? ", " + cap : ""}`} loading={k ? "lazy" : undefined} />{cap && <figcaption>{cap}</figcaption>}</figure>;
+      })}
+    </div>
+    {list.length > 1 && <div class="pager"><a href={href(lang, `/works/${prev}`)}>{t.prev}</a><a class="m" href={href(lang, "/works")}>{t.backTo}</a><a href={href(lang, `/works/${next}`)}>{t.next}</a></div>}
+  </section>
+</Base>

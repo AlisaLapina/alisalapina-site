@@ -1,0 +1,34 @@
+{
+  "title": "Hearts Are Trumps",
+  "published": true,
+  "subtitle_en": "triptych",
+  "subtitle_ru": "триптих",
+  "year": "2026",
+  "medium_en": "Digital fabrication, PLA",
+  "medium_ru": "",
+  "size": "25 × 30",
+  "after": "Sir John Everett Millais, Hearts Are Trumps, 1872",
+  "status": "Reserved",
+  "description_en": "",
+  "description_ru": "",
+  "cv_en": "triptych based on selected fragments from Sir John Everett Millais, Hearts Are Trumps (1872); relief / digital fabrication.",
+  "cv_ru": "",
+  "thumb": "/img/madame-thumb.jpg",
+  "images": [
+    {
+      "src": "/img/madame-close.jpg",
+      "caption_en": "Portrait panel",
+      "caption_ru": "Панель с портретом"
+    },
+    {
+      "src": "/img/madame-view.jpg",
+      "caption_en": "View on the wall",
+      "caption_ru": "Вид на стене"
+    },
+    {
+      "src": "/img/install.jpg",
+      "caption_en": "Installation view",
+      "caption_ru": "Вид экспозиции"
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+# Админка сайта alisalapina.com (Decap CMS).
+# Каждое сохранение — это коммит в GitHub; Netlify пересобирает сайт примерно за минуту.
+backend:
+  name: github
+  repo: GITHUB_USER/alisalapina-site # заменить на реальный репозиторий
+  branch: main
+
+# Локальная работа без GitHub: `npm run cms` + `npm run dev`, затем http://localhost:4321/admin/
+local_backend: true
+
+locale: ru
+site_url: https://alisalapina.com
+display_url: https://alisalapina.com
+logo_url: ""
+media_folder: public/img/uploads
+public_folder: /img/uploads
+
+collections:
+  - name: works
+    label: Работы
+    label_singular: Работа
+    description: >
+      Карточки работ. Новая работа появится на сайте, когда вы добавите её в серию
+      (раздел «Серии»). Порядок работ тоже задаётся там.
+    folder: src/content/works
+    editor: { preview: false }
+    extension: json
+    format: json
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{title}} · {{fields.year}} · {{fields.status}}"
+    sortable_fields: [title, year, status]
+    fields:
+      - { label: "Показывать на сайте", name: published, widget: boolean, default: true }
+      - { label: "Название", name: title, widget: string }
+      - { label: "Подзаголовок (EN)", name: subtitle_en, widget: string, required: false, hint: "Например: triptych, after Thomas Blinks" }
+      - { label: "Подзаголовок (RU)", name: subtitle_ru, widget: string, required: false }
+      - { label: "Год", name: year, widget: string, required: false }
+      - label: "Статус"
+        name: status
+        widget: select
+        required: false
+        options:
+          - { label: "Доступна (Available)", value: "Available" }
+          - { label: "Зарезервирована (Reserved)", value: "Reserved" }
+          - { label: "Продана (Sold)", value: "Sold" }
+          - { label: "Не продаётся (Not for sale)", value: "Not for sale" }
+      - { label: "Техника и материал (EN)", name: medium_en, widget: string, required: false }
+      - { label: "Техника и материал (RU)", name: medium_ru, widget: string, required: false }
+      - { label: "Размер, см", name: size, widget: string, required: false, hint: "В × Ш × Г, например 70 × 95 × 8. «см» сайт добавит сам." }
+      - { label: "По мотивам", name: after, widget: string, required: false, hint: "Автор, название оригинала, год" }
+      - { label: "Описание (EN)", name: description_en, widget: text, required: false, hint: "Абзацы разделяйте пустой строкой. Пусто — блок Description не показывается." }
+      - { label: "Описание (RU)", name: description_ru, widget: text, required: false }
+      - { label: "Строка для CV (EN)", name: cv_en, widget: text, required: false, hint: "Короткое описание для раздела Selected works в CV. Пусто — работы нет в CV." }
+      - { label: "Строка для CV (RU)", name: cv_ru, widget: text, required: false }
+      - { label: "Превью для сетки", name: thumb, widget: image, required: false, hint: "Если пусто, возьмётся первое фото ниже." }
+      - label: "Фотографии"
+        name: images
+        widget: list
+        required: false
+        hint: "Первое фото — главное на странице работы. Порядок меняется перетаскиванием. Без фото работа показывается в сетке как «Photo coming»."
+        summary: "{{fields.caption_en}}"
+        fields:
+          - { label: "Фото", name: src, widget: image }
+          - { label: "Подпись (EN)", name: caption_en, widget: string, required: false }
+          - { label: "Подпись (RU)", name: caption_ru, widget: string, required: false }
+
+  - name: series
+    label: Серии
+    label_singular: Серия
+    description: "Серии и порядок работ в них. Перетаскивайте работы, чтобы поменять порядок на странице Works."
+    folder: src/content/series
+    editor: { preview: false }
+    extension: json
+    format: json
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{fields.order}}. {{title}}, {{fields.year}}"
+    sortable_fields: [order, title, year]
+    fields:
+      - { label: "Название", name: title, widget: string }
+      - { label: "Год", name: year, widget: string, required: false }
+      - { label: "Порядок на странице Works", name: order, widget: number, value_type: int, default: 1, hint: "1 — первая серия сверху" }
+      - { label: "Текст о серии (EN)", name: text_en, widget: text, required: false }
+      - { label: "Текст о серии (RU)", name: text_ru, widget: text, required: false }
+      - label: "Работы в серии"
+        name: works
+        widget: list
+        required: false
+        collapsed: false
+        hint: "Порядок меняется перетаскиванием за значок ═ ."
+        field:
+          label: "Работа"
+          name: work
+          widget: relation
+          collection: works
+          value_field: "{{slug}}"
+          search_fields: [title]
+          display_fields: [title]
+
+  - name: pages
+    label: Страницы
+    editor: { preview: false }
+    files:
+      - label: "Главная"
+        name: home
+        file: src/content/pages/home.json
+        format: json
+        fields:
+          - { label: "Работа, на которую ведут картинки", name: work, widget: relation, collection: works, value_field: "{{slug}}", search_fields: [title], display_fields: [title] }
+          - { label: "Картинка слева", name: image_left, widget: image }
+          - { label: "Картинка справа", name: image_right, widget: image, hint: "Чтобы картина была одного размера на обеих, кадрируйте фото одинаково." }
+      - label: "About (artist statement)"
+        name: about
+        file: src/content/pages/about.json
+        format: json
+        fields:
+          - { label: "Текст (EN)", name: statement_en, widget: text, hint: "Абзацы разделяйте пустой строкой. Первый абзац набирается крупнее." }
+          - { label: "Текст (RU)", name: statement_ru, widget: text, required: false }
+      - label: "CV"
+        name: cv
+        file: src/content/pages/cv.json
+        format: json
+        fields:
+          - { label: "Фото", name: photo, widget: image, required: false }
+          - { label: "Profile (EN)", name: profile_en, widget: text }
+          - { label: "Profile (RU)", name: profile_ru, widget: text, required: false }
+          - { label: "Practice / methods (EN)", name: methods_en, widget: text }
+          - { label: "Practice / methods (RU)", name: methods_ru, widget: text, required: false }
+          - { label: "Professional background (EN)", name: background_en, widget: text }
+          - { label: "Professional background (RU)", name: background_ru, widget: text, required: false }
+          - { label: "Портфолио (PDF)", name: portfolio_pdf, widget: file, required: false }
+      - label: "Process"
+        name: process
+        file: src/content/pages/process.json
+        format: json
+        fields:
+          - { label: "Вступление (EN)", name: intro_en, widget: text, required: false }
+          - { label: "Вступление (RU)", name: intro_ru, widget: text, required: false }
+          - label: "Фотографии"
+            name: images
+            widget: list
+            summary: "{{fields.caption_en}}"
+            fields:
+              - { label: "Фото", name: src, widget: image }
+              - { label: "Подпись (EN)", name: caption_en, widget: string, required: false }
+              - { label: "Подпись (RU)", name: caption_ru, widget: string, required: false }
+      - label: "Контакты"
+        name: settings
+        file: src/content/pages/settings.json
+        format: json
+        fields:
+          - { label: "Email", name: email, widget: string }
+          - { label: "Instagram (без @)", name: instagram, widget: string }

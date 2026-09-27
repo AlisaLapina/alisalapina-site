@@ -1,0 +1,44 @@
+{
+  "title": "Summer Garden",
+  "published": true,
+  "subtitle_en": "triptych",
+  "subtitle_ru": "триптих",
+  "year": "2025",
+  "medium_en": "Digital fabrication, PLA",
+  "medium_ru": "",
+  "size": "20 × 24",
+  "after": "",
+  "status": "Reserved",
+  "description_en": "This triptych is about a garden from my childhood.\nAbout summer cottages, warm neighborly bonds, and flowers that grew “just because,” yet felt like the most beautiful in the world.\n\nLilies, peonies, and roses — the very flowers used to gather a bouquet for the first day of school: heavy and oversized for a first-grader, but deeply important.\n\nI removed the color, leaving only the relief. This is how the shape of memory remains when details begin to fade.",
+  "description_ru": "",
+  "cv_en": "floral triptych: lily, peony, rose; relief / digital fabrication.",
+  "cv_ru": "",
+  "thumb": "/img/summer-garden-thumb.jpg",
+  "images": [
+    {
+      "src": "/img/summer-garden-triptych.jpg",
+      "caption_en": "Triptych, three panels",
+      "caption_ru": "Триптих, три панели"
+    },
+    {
+      "src": "/img/lily-close.jpg",
+      "caption_en": "Panel I · Lily",
+      "caption_ru": "Панель I · Лилия"
+    },
+    {
+      "src": "/img/peony-close.jpg",
+      "caption_en": "Panel II · Peony",
+      "caption_ru": "Панель II · Пион"
+    },
+    {
+      "src": "/img/rose-close.jpg",
+      "caption_en": "Panel III · Rose",
+      "caption_ru": "Панель III · Роза"
+    },
+    {
+      "src": "/img/install.jpg",
+      "caption_en": "Installation view",
+      "caption_ru": "Вид экспозиции"
+    }
+  ]
+}

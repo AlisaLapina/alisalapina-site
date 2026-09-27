@@ -1,0 +1,18 @@
+---
+import Base from "../../layouts/Base.astro";
+import { langPaths, langOf, page, paragraphs, T } from "../../lib/data.js";
+export const getStaticPaths = langPaths;
+const lang = langOf(Astro.params.lang);
+const a = page("about");
+const ru = lang === "ru" && a.statement_ru;
+const text = ru ? a.statement_ru : a.statement_en;
+---
+<Base lang={lang} current="about" path="/about" title={T[lang].about}>
+  <section class="grid tp">
+    <div class="lead"><h1>{T[lang].about}</h1></div>
+    <div class="body statement">
+      {lang === "ru" && !ru && <div class="m">{T.ru.notTranslated}</div>}
+      {paragraphs(text).map((p) => <p>{p}</p>)}
+    </div>
+  </section>
+</Base>

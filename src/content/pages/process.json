@@ -1,0 +1,26 @@
+{
+  "intro_en": "Monthly notes from the studio: modelling, printing, finishing. The engineering side of the work.",
+  "intro_ru": "Заметки из мастерской раз в месяц: моделирование, печать, обработка. Инженерная сторона работы.",
+  "images": [
+    {
+      "src": "/img/process-1.jpg",
+      "caption_en": "",
+      "caption_ru": ""
+    },
+    {
+      "src": "/img/process-2.jpg",
+      "caption_en": "",
+      "caption_ru": ""
+    },
+    {
+      "src": "/img/process-3.jpg",
+      "caption_en": "",
+      "caption_ru": ""
+    },
+    {
+      "src": "/img/process-4.jpg",
+      "caption_en": "",
+      "caption_ru": ""
+    }
+  ]
+}

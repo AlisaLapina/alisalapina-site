@@ -1,0 +1,44 @@
+---
+import { T, href, page } from "../lib/data.js";
+const { lang = "en", current = "", path = "/", title = "", description = "" } = Astro.props;
+const t = T[lang];
+const settings = page("settings");
+const nav = ["works", "process", "about", "cv", "contact"];
+const fullTitle = title ? `${title} · Alisa Lapina` : "Alisa Lapina";
+const desc = description || "Alisa Lapina: reliefs and objects rebuilt from historical images through digital fabrication.";
+---
+<!doctype html>
+<html lang={lang}>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{fullTitle}</title>
+  <meta name="description" content={desc}>
+  <link rel="alternate" hreflang="en" href={href("en", path)}>
+  <link rel="alternate" hreflang="ru" href={href("ru", path)}>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap">
+  <link rel="stylesheet" href="/site.css">
+</head>
+<body>
+  <header>
+    <a class="name" href={href(lang, "/")}>Alisa Lapina</a>
+    <nav>
+      {nav.map((k) => (
+        <a href={href(lang, `/${k}`)} aria-current={k === current ? "page" : undefined}>{t[k]}</a>
+      ))}
+      <span class="lang">
+        <a href={href("en", path)} aria-current={lang === "en" ? "true" : undefined}>EN</a>/<a href={href("ru", path)} aria-current={lang === "ru" ? "true" : undefined}>RU</a>
+      </span>
+    </nav>
+  </header>
+  <main><slot /></main>
+  <footer>
+    <span>© {new Date().getFullYear()} Alisa Lapina</span>
+    <span>
+      <a href={`https://www.instagram.com/${settings.instagram}/`} target="_blank" rel="noopener">Instagram</a> · <a href={`mailto:${settings.email}`}>{settings.email}</a>
+    </span>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,16 @@
+---
+import Base from "../../layouts/Base.astro";
+import { langPaths, langOf, page, T } from "../../lib/data.js";
+export const getStaticPaths = langPaths;
+const lang = langOf(Astro.params.lang);
+const s = page("settings");
+---
+<Base lang={lang} current="contact" path="/contact" title={T[lang].contact}>
+  <section class="grid tp contact">
+    <div class="lead"><h1>{T[lang].contact}</h1></div>
+    <div class="body"><dl>
+      <dt>{T[lang].email}</dt><dd><a class="u" href={`mailto:${s.email}`}>{s.email}</a></dd>
+      <dt>{T[lang].insta}</dt><dd><a class="u" href={`https://www.instagram.com/${s.instagram}/`} target="_blank" rel="noopener">@{s.instagram}</a></dd>
+    </dl></div>
+  </section>
+</Base>

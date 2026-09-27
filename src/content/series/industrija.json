@@ -1,0 +1,14 @@
+{
+  "title": "Industrija",
+  "year": "2026",
+  "order": 1,
+  "text_en": "A study of the link between the age of industrialisation and the fourth industrial revolution.",
+  "text_ru": "Исследование связи эпохи индустриализации и четвёртой промышленной революции.",
+  "works": [
+    "full-cry",
+    "hearts",
+    "lady-campbell",
+    "blinks-dogs",
+    "blinks-rider"
+  ]
+}

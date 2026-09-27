@@ -1,0 +1,29 @@
+---
+import Base from "../../layouts/Base.astro";
+import { langPaths, langOf, page, pick, paragraphs, orderedWorks, hasImages, href, T } from "../../lib/data.js";
+export const getStaticPaths = langPaths;
+const lang = langOf(Astro.params.lang);
+const t = T[lang];
+const cv = page("cv");
+const selected = orderedWorks().filter((w) => pick(w, "cv", lang));
+const untranslated = lang === "ru" && !cv.profile_ru;
+---
+<Base lang={lang} current="cv" path="/cv" title="CV">
+  <section class="grid tp cvp">
+    <div class="lead"><h1>{t.cv}</h1>{cv.photo && <img class="cvpic" src={cv.photo} alt="Alisa Lapina" />}</div>
+    <div class="body">
+      {untranslated && <p class="m">{T.ru.notTranslated}</p>}
+      <h3>{t.cvH[0]}</h3>
+      {paragraphs(pick(cv, "profile", lang)).map((p) => <p>{p}</p>)}
+      <h3>{t.cvH[1]}</h3>
+      <ul class="sw">{selected.map((w) => (
+        <li><i>{hasImages(w) ? <a class="u" href={href(lang, `/works/${w.slug}`)}>{w.title}</a> : w.title}{w.year && `, ${w.year}`}</i><span>{pick(w, "cv", lang)}</span></li>
+      ))}</ul>
+      <h3>{t.cvH[2]}</h3>
+      <p>{pick(cv, "methods", lang)}</p>
+      <h3>{t.cvH[3]}</h3>
+      {paragraphs(pick(cv, "background", lang)).map((p) => <p>{p}</p>)}
+      {cv.portfolio_pdf && <p><a class="u" href={cv.portfolio_pdf}>{t.portfolio}</a></p>}
+    </div>
+  </section>
+</Base>
