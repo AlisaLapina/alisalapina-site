@@ -1,17 +1,19 @@
 {
-  "size": "30 × 40",
-  "description_ru": "",
-  "subtitle_ru": "по мотивам голландского натюрморта",
-  "description_en": "",
-  "medium_ru": "",
   "published": true,
-  "cv_ru": "",
+  "title": "Flowers",
   "subtitle_en": "after a Dutch still life",
+  "subtitle_ru": "по мотивам голландского натюрморта",
+  "year": "2025",
   "status": "Available",
   "medium_en": "Digital fabrication, PLA",
+  "medium_ru": "",
+  "size": "30 × 40",
+  "after": "Dutch still life, 17th century",
+  "description_en": "Dutch floral still lifes turned flowers into elaborate constructed images: bouquets brought together specimens that did not necessarily bloom at the same time, arranged for the painting rather than found in nature. Flowers takes this already artificial composition and translates it once again, from painted colour into a monochrome relief. What remains is the density of the arrangement — petals, leaves and ornament compressed into a single surface. The work is less a reproduction of the painting than another stage in its transformation.",
+  "description_ru": "",
   "cv_en": "relief after a 17th-century Dutch still life; digital fabrication, PLA.",
+  "cv_ru": "",
   "thumb": "/img/flowers-thumb.jpg",
-  "title": "Flowers",
   "images": [
     {
       "src": "/img/flowers-close.jpg",
@@ -38,7 +40,5 @@
       "caption_en": "Installation view",
       "caption_ru": "Вид экспозиции"
     }
-  ],
-  "after": "Dutch still life, 17th century",
-  "year": "2025"
+  ]
 }
