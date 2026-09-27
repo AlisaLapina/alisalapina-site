@@ -1,17 +1,17 @@
 ---
-import { T, STATUS, hasImages, href } from "../lib/data.js";
+import { T, STATUS, photosOf, imgSrc, href } from "../lib/data.js";
 const { work: w, lang } = Astro.props;
 const meta = [lang === "ru" ? w.subtitle_ru || w.subtitle_en : w.subtitle_en, w.year].filter(Boolean).join(" · ");
 const link = href(lang, `/works/${w.slug}`);
-const shown = hasImages(w);
-const thumb = w.thumb || (shown ? w.images[0].src : "");
+const photos = photosOf(w);
+const thumb = w.thumb ? imgSrc(w.thumb) : photos[0]?.src || "";
 ---
 <div class="tile">
-  {shown
+  {thumb
     ? <a class="ph" href={link}><img src={thumb} alt={w.title} loading="lazy"></a>
-    : <div class="ph empty">{T[lang].photoSoon}</div>}
+    : <a class="ph empty" href={link}>{T[lang].photoSoon}</a>}
   <div class="t">
-    {shown ? <a class="u" href={link}>{w.title}</a> : <span>{w.title}</span>}
+    <a class="u" href={link}>{w.title}</a>
     <span class="m">{meta}</span>
     {w.status === "Available" && <span class="av">{STATUS[lang].Available}</span>}
   </div>

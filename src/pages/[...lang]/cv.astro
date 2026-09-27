@@ -1,6 +1,6 @@
 ---
 import Base from "../../layouts/Base.astro";
-import { langPaths, langOf, page, pick, paragraphs, orderedWorks, hasImages, href, T } from "../../lib/data.js";
+import { langPaths, langOf, page, pick, paragraphs, orderedWorks, href, T } from "../../lib/data.js";
 export const getStaticPaths = langPaths;
 const lang = langOf(Astro.params.lang);
 const t = T[lang];
@@ -17,7 +17,7 @@ const untranslated = lang === "ru" && !cv.profile_ru;
       {paragraphs(pick(cv, "profile", lang)).map((p) => <p>{p}</p>)}
       <h3>{t.cvH[1]}</h3>
       <ul class="sw">{selected.map((w) => (
-        <li><i>{hasImages(w) ? <a class="u" href={href(lang, `/works/${w.slug}`)}>{w.title}</a> : w.title}{w.year && `, ${w.year}`}</i><span>{pick(w, "cv", lang)}</span></li>
+        <li><i><a class="u" href={href(lang, `/works/${w.slug}`)}>{w.title}</a>{w.year && `, ${w.year}`}</i><span>{pick(w, "cv", lang)}</span></li>
       ))}</ul>
       <h3>{t.cvH[2]}</h3>
       <p>{pick(cv, "methods", lang)}</p>

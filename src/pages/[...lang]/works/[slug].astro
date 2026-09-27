@@ -1,15 +1,16 @@
 ---
 import Base from "../../../layouts/Base.astro";
-import { LANGS, works, seriesOf, hasImages, pick, paragraphs, href, page, STATUS, T } from "../../../lib/data.js";
+import { LANGS, works, seriesOf, photosOf, pick, paragraphs, href, page, STATUS, T } from "../../../lib/data.js";
 export function getStaticPaths() {
   return LANGS.flatMap((l) =>
-    Object.values(works).filter(hasImages).map((w) => ({ params: { lang: l === "ru" ? "ru" : undefined, slug: w.slug }, props: { w, lang: l } })),
+    Object.values(works).map((w) => ({ params: { lang: l === "ru" ? "ru" : undefined, slug: w.slug }, props: { w, lang: l } })),
   );
 }
 const { w, lang } = Astro.props;
 const t = T[lang];
 const s = seriesOf(w.slug);
-const list = s ? s.works.filter((id) => hasImages(works[id])) : [w.slug];
+const list = s ? s.works : [w.slug];
+const photos = photosOf(w);
 const i = list.indexOf(w.slug);
 const prev = list[(i - 1 + list.length) % list.length];
 const next = list[(i + 1) % list.length];
@@ -38,7 +39,8 @@ const sub = lang === "ru" ? w.subtitle_ru || w.subtitle_en : w.subtitle_en;
       )}
     </div>
     <div class="imgs">
-      {w.images.map((im, k) => {
+      {photos.length === 0 && <div class="ph empty noimg">{t.photoSoon}</div>}
+      {photos.map((im, k) => {
         const cap = lang === "ru" ? im.caption_ru || im.caption_en : im.caption_en;
         return <figure><img src={im.src} alt={`${w.title}${cap ? ", " + cap : ""}`} loading={k ? "lazy" : undefined} />{cap && <figcaption>{cap}</figcaption>}</figure>;
       })}

@@ -1,6 +1,6 @@
 ---
 import Base from "../../layouts/Base.astro";
-import { langPaths, langOf, page, pick, paragraphs, T } from "../../lib/data.js";
+import { langPaths, langOf, page, pick, paragraphs, imgSrc, T } from "../../lib/data.js";
 export const getStaticPaths = langPaths;
 const lang = langOf(Astro.params.lang);
 const p = page("process");
@@ -11,7 +11,7 @@ const p = page("process");
     <div class="body">{paragraphs(pick(p, "intro", lang)).map((x) => <p>{x}</p>)}</div>
     <div class="pgrid">{(p.images || []).map((im) => {
       const cap = lang === "ru" ? im.caption_ru || im.caption_en : im.caption_en;
-      return <figure class="pfig"><img src={im.src} alt={cap || T[lang].process} loading="lazy" />{cap && <figcaption>{cap}</figcaption>}</figure>;
+      return <figure class="pfig"><img src={imgSrc(im.src)} alt={cap || T[lang].process} loading="lazy" />{cap && <figcaption>{cap}</figcaption>}</figure>;
     })}</div>
   </section>
 </Base>

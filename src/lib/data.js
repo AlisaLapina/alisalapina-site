@@ -25,7 +25,18 @@ export const series = Object.entries(seriesFiles)
 export const page = (name) => pageFiles[`../content/pages/${name}.json`] || {};
 
 export const seriesOf = (slug) => series.find((s) => s.works.includes(slug));
-export const hasImages = (w) => Array.isArray(w.images) && w.images.length > 0;
+// Image paths pasted from the GitHub website (…/blob/main/public/img/x.jpg) point to an HTML page,
+// not to the file; turn them back into site paths so the photo still shows.
+export const imgSrc = (src) => {
+  const m = String(src || "").match(/^https:\/\/github\.com\/[^/]+\/[^/]+\/(?:blob|raw)\/[^/]+\/public(\/.+)$/);
+  return m ? m[1] : src || "";
+};
+// Photos for the work page: the photo list, or the grid preview when the list is empty.
+export const photosOf = (w) => {
+  const list = (w.images || []).filter((im) => im && im.src).map((im) => ({ ...im, src: imgSrc(im.src) }));
+  return list.length ? list : w.thumb ? [{ src: imgSrc(w.thumb), caption_en: "", caption_ru: "" }] : [];
+};
+export const hasImages = (w) => photosOf(w).length > 0;
 
 // Works in site order (series order, then order inside a series).
 export const orderedWorks = () => series.flatMap((s) => s.works.map((id) => works[id]));

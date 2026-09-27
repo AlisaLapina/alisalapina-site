@@ -1,6 +1,6 @@
 ---
 import Base from "../../layouts/Base.astro";
-import { langPaths, langOf, page, works, seriesOf, href, T } from "../../lib/data.js";
+import { langPaths, langOf, page, works, seriesOf, href, imgSrc, T } from "../../lib/data.js";
 export const getStaticPaths = langPaths;
 const lang = langOf(Astro.params.lang);
 const home = page("home");
@@ -11,8 +11,8 @@ const link = w ? href(lang, `/works/${w.slug}`) : href(lang, "/works");
 <Base lang={lang} path="/">
   <section class="home"><figure>
     <div class="pair">
-      <a href={link}><img src={home.image_left} alt={w ? w.title : ""}></a>
-      <a href={link}><img src={home.image_right} alt={w ? w.title : ""}></a>
+      <a href={link}><img src={imgSrc(home.image_left)} alt={w ? w.title : ""}></a>
+      <a href={link}><img src={imgSrc(home.image_right)} alt={w ? w.title : ""}></a>
     </div>
     {w && <figcaption>
       <span><a class="u" href={link}>{w.title}</a> <span class="m">{lang === "ru" ? w.subtitle_ru || w.subtitle_en : w.subtitle_en}</span></span>

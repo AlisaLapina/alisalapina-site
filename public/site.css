@@ -126,3 +126,4 @@ footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border
 main{min-height:60vh}
 .pfig{margin:0;display:flex;flex-direction:column;gap:6px}
 .pfig figcaption{font-size:11px;color:var(--mute)}
+.wp .noimg{aspect-ratio:4/5;max-height:70vh;background:var(--plate);display:flex;align-items:center;justify-content:center;color:var(--mute);font-size:12px}
