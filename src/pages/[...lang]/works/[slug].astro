@@ -35,7 +35,7 @@ const sub = lang === "ru" ? w.subtitle_ru || w.subtitle_en : w.subtitle_en;
         <details class="reqd"><summary class="req">{t.req}</summary><p class="reqbox">{t.reqText(email)}</p></details>
       )}
       {desc && (
-        <div class="acc"><details><summary>{t.description}</summary><div class="desc">{paragraphs(desc).map((p) => <p set:html={p.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/\n/g, "<br>")} />)}</div></details></div>
+        <div class="acc"><details open><summary>{t.description}</summary><div class="desc">{paragraphs(desc).map((p) => <p set:html={p.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/\n/g, "<br>")} />)}</div></details></div>
       )}
     </div>
     <div class="imgs">
