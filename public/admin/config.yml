@@ -1,17 +1,13 @@
-# Админка сайта alisalapina.com (Decap CMS).
-# Каждое сохранение — это коммит в GitHub; Netlify пересобирает сайт примерно за минуту.
+# Админка сайта alisalapina.com (Sveltia CMS).
+# Каждое сохранение — это коммит в GitHub; GitHub Actions пересобирает сайт за 1–2 минуты.
+# Вход: «Sign In with Token» + токен GitHub с доступом к этому репозиторию.
 backend:
   name: github
   repo: AlisaLapina/alisalapina-site
   branch: main
 
-# Локальная работа без GitHub: `npm run cms` + `npm run dev`, затем http://localhost:4321/admin/
-local_backend: true
-
-locale: ru
 site_url: https://alisalapina.com
 display_url: https://alisalapina.com
-logo_url: ""
 media_folder: public/img/uploads
 public_folder: /img/uploads
 
