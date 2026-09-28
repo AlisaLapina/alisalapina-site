@@ -1,14 +1,16 @@
 ---
 import Base from "../../../layouts/Base.astro";
 import Tile from "../../../components/Tile.astro";
-import { LANGS, series, works, pick, paragraphs, href, T } from "../../../lib/data.js";
+import { LANGS, series, works, pick, paragraphs, href, photosOf, imgSrc, T } from "../../../lib/data.js";
 export function getStaticPaths() {
   return LANGS.flatMap((l) => series.map((s) => ({ params: { lang: l === "ru" ? "ru" : undefined, id: s.id }, props: { s, lang: l } })));
 }
 const { s, lang } = Astro.props;
 const text = pick(s, "text", lang);
+const firstWithPhoto = s.works.map((id) => works[id]).find((w) => photosOf(w).length);
+const shareImg = firstWithPhoto ? (firstWithPhoto.thumb ? imgSrc(firstWithPhoto.thumb) : photosOf(firstWithPhoto)[0].src) : undefined;
 ---
-<Base lang={lang} current="works" path={`/series/${s.id}`} title={s.title}>
+<Base lang={lang} current="works" path={`/series/${s.id}`} title={s.title} image={shareImg} description={text || undefined}>
   <section class="grid sp">
     <div class="side">
       <span class="m">{T[lang].series}, {s.year}</span>

@@ -1,6 +1,6 @@
 ---
 import Base from "../../../layouts/Base.astro";
-import { LANGS, works, seriesOf, photosOf, pick, paragraphs, href, page, STATUS, T } from "../../../lib/data.js";
+import { LANGS, works, seriesOf, photosOf, imgSrc, pick, paragraphs, href, page, STATUS, T } from "../../../lib/data.js";
 export function getStaticPaths() {
   return LANGS.flatMap((l) =>
     Object.values(works).map((w) => ({ params: { lang: l === "ru" ? "ru" : undefined, slug: w.slug }, props: { w, lang: l } })),
@@ -18,8 +18,12 @@ const medium = pick(w, "medium", lang);
 const desc = pick(w, "description", lang);
 const email = page("settings").email;
 const sub = lang === "ru" ? w.subtitle_ru || w.subtitle_en : w.subtitle_en;
+const shareImg = (w.thumb ? imgSrc(w.thumb) : photos[0]?.src) || undefined;
+const facts = [sub, w.year, medium, w.size && `${w.size} ${t.cm}`].filter(Boolean).join(" · ");
+const firstPara = paragraphs(desc)[0] || "";
+const shareDesc = firstPara ? `${facts}. ${firstPara.length > 180 ? firstPara.slice(0, 177).trimEnd() + "…" : firstPara}` : facts;
 ---
-<Base lang={lang} current="works" path={`/works/${w.slug}`} title={w.title} description={`${w.title}${sub ? ", " + sub : ""}. ${w.year}. ${medium}`}>
+<Base lang={lang} current="works" path={`/works/${w.slug}`} title={w.title} image={shareImg} description={shareDesc}>
   <section class="grid wp">
     <div class="info">
       <div><h1>{w.title}{sub && <span>{sub}</span>}</h1></div>

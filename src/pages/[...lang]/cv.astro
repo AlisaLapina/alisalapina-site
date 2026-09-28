@@ -8,7 +8,7 @@ const cv = page("cv");
 const selected = orderedWorks().filter((w) => pick(w, "cv", lang));
 const untranslated = lang === "ru" && !cv.profile_ru;
 ---
-<Base lang={lang} current="cv" path="/cv" title="CV">
+<Base lang={lang} current="cv" path="/cv" title="CV" image={cv.photo || undefined}>
   <section class="grid tp cvp">
     <div class="lead"><h1>{t.cv}</h1>{cv.photo && <img class="cvpic" src={cv.photo} alt="Alisa Lapina" />}</div>
     <div class="body">

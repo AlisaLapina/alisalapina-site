@@ -1,11 +1,18 @@
 ---
 import { T, href, page } from "../lib/data.js";
-const { lang = "en", current = "", path = "/", title = "", description = "" } = Astro.props;
+const { lang = "en", current = "", path = "/", title = "", description = "", image = "/img/share.jpg" } = Astro.props;
 const t = T[lang];
 const settings = page("settings");
 const nav = ["works", "process", "about", "cv", "contact"];
 const fullTitle = title ? `${title} · Alisa Lapina` : "Alisa Lapina";
-const desc = description || "Alisa Lapina: reliefs and objects rebuilt from historical images through digital fabrication.";
+// Link previews (Telegram, WhatsApp, Instagram DMs, iMessage) read the og: tags below; they need absolute URLs.
+const site = Astro.site || "https://alisalapina.com";
+const pageUrl = new URL(href(lang, path), site).href;
+const ogImage = new URL(image, site).href;
+// Default preview text: the first paragraph of the artist statement (edited in the admin, About page).
+const about = page("about");
+const statement = (lang === "ru" && about.statement_ru) || about.statement_en || "";
+const desc = description || statement.split(/\n\s*\n/)[0].trim() || "Alisa Lapina";
 ---
 <!doctype html>
 <html lang={lang}>
@@ -14,6 +21,19 @@ const desc = description || "Alisa Lapina: reliefs and objects rebuilt from hist
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>{fullTitle}</title>
   <meta name="description" content={desc}>
+  <link rel="canonical" href={pageUrl}>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Alisa Lapina">
+  <meta property="og:title" content={fullTitle}>
+  <meta property="og:description" content={desc}>
+  <meta property="og:url" content={pageUrl}>
+  <meta property="og:image" content={ogImage}>
+  <meta property="og:locale" content={lang === "ru" ? "ru_RU" : "en_US"}>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content={fullTitle}>
+  <meta name="twitter:description" content={desc}>
+  <meta name="twitter:image" content={ogImage}>
   <link rel="alternate" hreflang="en" href={href("en", path)}>
   <link rel="alternate" hreflang="ru" href={href("ru", path)}>
   <link rel="preconnect" href="https://fonts.googleapis.com">
